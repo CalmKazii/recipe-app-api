@@ -47,7 +47,7 @@ class PublicUserApiTests(TestCase):
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_passwrod_too_short(self):
+    def test_password_too_short(self):
         """Test that password must be mre than 5 characters"""
         payload = {'email': 'test@gmail.com', 'password': 'pw', 'name': 'Test', }
         res = self.client.post(CREATE_USER_URL, payload)
@@ -60,7 +60,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_for_user(self):
         """Test that a token is created for user"""
-        payload = {'email': 'test@gmail.com', 'password': 'testpass'}
+        payload = {'email': 'test@londonappdev.com', 'password': 'testpass'}
         create_user(**payload)
         res = self.client.post(TOKEN_URL, payload)
 
@@ -69,7 +69,7 @@ class PublicUserApiTests(TestCase):
 
     def test_create_token_invalid_credentials(self):
         """test that token is not created if invalid credentials are given"""
-        create_user(email='test@gmail.com', password="testpass")
+        create_user(email='test@gmail.com', password='testpass')
         payload = {'email': 'test@gmail.com', 'password': 'wrong'}
         res = self.client.post(TOKEN_URL, payload)
 
